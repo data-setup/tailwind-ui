@@ -1,15 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "_base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-</head>
+{% block content %}
 
-<body>
-    <h1>Welcome to the Home Page</h1>
-    <p>This is the home page of our Django project.</p>
-    <a href="/about/">About Us</a>
-</body>
+<!-- Hero Section -->
 
-</html>
+<div class="hero bg-gray-200">
+    <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-black">Home</h1>
+        <p class="mt-4 text-lg text-black">This is the homepage of our Django project, beautifully styled with Tailwind CSS.</p>
+
+        <div class="mt-8 space-x-3">
+            <a href="about/"
+                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+                Back to About
+                <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

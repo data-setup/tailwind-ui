@@ -1,0 +1,72 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django + Tailwind CSS</title>
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+
+</head>
+
+<body>
+
+    <nav class="bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 w-8" alt="Flowbite Logo">
+                    </div>
+                    <div class="hidden md:flex">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="/" class="text-black hover:bg-gray-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
+                                aria-current="page">Home</a>
+                            <a href="/about/" class="text-black hover:bg-gray-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:flex">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <a href="/login/" class="text-black hover:bg-gray-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                        <a href="/register/" class="text-black hover:bg-gray-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Register</a>
+                    </div>
+                </div>
+                <div class="flex md:hidden">
+                    <button type="button"
+                        class="bg-gray-100 inline-flex items-center justify-center p-2 rounded-md text-black hover:text-black hover:bg-gray-200"
+                        id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Icons updated to match color scheme -->
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu links updated to match color scheme -->
+    </nav>
+
+    {% block content %}
+    <!-- Default content goes here if not overridden -->
+    {% endblock content %}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@1.6.0/dist/flowbite.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('mobile-menu-button').addEventListener('click', function () {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
