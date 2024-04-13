@@ -17,41 +17,115 @@
 </head>
 
 <body>
+    <!-- Navbar -->
+    <nav class="border-gray-200 bg-white dark:bg-gray-900">
+        <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
+            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Logo" />
+                <span class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">Name</span>
+            </a>
+            <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+                {% if user.is_authenticated %}
+                <div class="relative">
+                    <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName"
+                        class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+                        type="button">
+                        <span class="sr-only">Open user menu</span>
+                        <img class="w-8 h-8 me-2 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="user photo">
+                        Bonnie Green
+                        <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
 
-    <nav class="bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 w-8" alt="Flowbite Logo">
-                    </div>
-                    <div class="hidden md:flex">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="/" class="text-black hover:bg-gray-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium"
-                                aria-current="page">Home</a>
-                            <a href="/about/" class="text-black hover:bg-gray-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium">About</a>
+                    <!-- Dropdown menu -->
+                    <div id="dropdownAvatarName"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                            <div class="font-medium ">{{ user.username }}</div>
+                            <div class="truncate">{{ user.email }}</div>
+                        </div>
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                            <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'account_change_password' %}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Change password</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Posts</a>
+                            </li>
+                        </ul>
+                        <div class="py-2">
+                            <a href="{% url 'account_logout' %}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                                out</a>
                         </div>
                     </div>
-                </div>
-                <div class="hidden md:flex">
-                    <div class="ml-4 flex items-center md:ml-6">
-                        <a href="/login/" class="text-black hover:bg-gray-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Login</a>
-                        <a href="/register/" class="text-black hover:bg-gray-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Register</a>
+
+                    <div class="dropdown-menu absolute hidden bg-white shadow-md rounded-lg mt-2" id="dropdown-menu">
+                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="#">{{ user.email }}</a>
+                        <div class="border-t"></div>
+                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{% url 'account_change_password' %}">Change password</a>
+                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{% url 'account_logout' %}">Sign out</a>
                     </div>
                 </div>
-                <div class="flex md:hidden">
-                    <button type="button"
-                        class="bg-gray-100 inline-flex items-center justify-center p-2 rounded-md text-black hover:text-black hover:bg-gray-200"
-                        id="mobile-menu-button">
-                        <span class="sr-only">Open main menu</span>
-                        <!-- Icons updated to match color scheme -->
-                    </button>
+                {% else %}
+                <div class="hidden md:flex">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <a href="{% url 'account_login' %}" class="text-black hover:bg-gray-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Log
+                            in</a>
+                        <a href="{% url 'account_signup' %}" class="text-black hover:bg-gray-200 hover:text-black px-3 py-2 rounded-md text-sm font-medium">Sign
+                            up</a>
+                    </div>
                 </div>
+                {% endif %}
+
+                <button data-collapse-toggle="navbar-cta" type="button"
+                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-cta" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
+            <div class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto" id="navbar-cta">
+                <ul
+                    class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-gray-800 md:dark:bg-gray-900">
+                    <li>
+                        <a href="{% url 'home' %}"
+                            class="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 md:dark:text-blue-500"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'about' %}"
+                            class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500">About</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500">Services</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contact' %}"
+                            class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500">Contact</a>
+                    </li>
+                </ul>
             </div>
         </div>
-
-        <!-- Mobile menu links updated to match color scheme -->
+        <!-- Mobile Menu -->
+        <div class="md:hidden" id="mobile-menu" style="display: none;">
+            <a href="{% url 'home' %}" class="block px-4 py-2 text-sm text-gray-700">Home</a>
+            <a href="{% url 'about' %}" class="block px-4 py-2 text-sm text-gray-700">About</a>
+            <a href="{% url 'contact' %}" class="block px-4 py-2 text-sm text-gray-700">Contact</a>
+            <!-- Add conditional rendering for authenticated users as in the desktop menu -->
+        </div>
     </nav>
+    <!-- End Navbar -->
+
+
+    <!-- Main Content -->
 
     {% block content %}
     <!-- Default content goes here if not overridden -->
@@ -59,6 +133,17 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@1.6.0/dist/flowbite.min.js"></script>
+    <script>
+        function toggleMobileMenu() {
+            var mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.style.display === 'none') {
+                mobileMenu.style.display = 'block';
+            } else {
+                mobileMenu.style.display = 'none';
+            }
+        }   
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('mobile-menu-button').addEventListener('click', function () {

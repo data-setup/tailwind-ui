@@ -4,4 +4,5 @@ from django.urls import path, include  # Make sure include is imported
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),  # Include the pages app urls
+    path("accounts/", include("allauth.urls")),  # Include the allauth urls
 ]
