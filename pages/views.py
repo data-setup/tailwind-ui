@@ -12,3 +12,9 @@ def about_view(request):
 # Contact Page View
 def contact_view(request):
     return render(request, 'pages/contact.html')
+
+
+# Profile Page View
+
+def profile(request):
+    return render(request, 'pages/profile.html')
